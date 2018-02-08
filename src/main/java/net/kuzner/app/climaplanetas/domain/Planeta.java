@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.kuzner.app.mepachallenge.domain;
+package net.kuzner.app.climaplanetas.domain;
 
 import java.awt.geom.Point2D;
 import java.util.Objects;

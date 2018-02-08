@@ -1,4 +1,4 @@
-package net.kuzner.app.mepachallenge.domain;
+package net.kuzner.app.climaplanetas.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
