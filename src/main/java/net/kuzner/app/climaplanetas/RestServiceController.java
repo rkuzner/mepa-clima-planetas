@@ -1,6 +1,7 @@
 package net.kuzner.app.climaplanetas;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -24,7 +25,10 @@ public class RestServiceController {
 
 	@RequestMapping(path = "/prediccion", method = RequestMethod.GET)
 	public Prediccion getPrediccion(@RequestParam(value = "dias", defaultValue = "3652") Integer cuantosDias) {
-		if (Objects.isNull(this.pronosticoPorDia) || this.pronosticoPorDia.isEmpty()) {
+		if(Objects.isNull(this.pronosticoPorDia)) {
+			this.pronosticoPorDia = new HashMap<Integer, Pronostico>();
+		}
+		if (this.pronosticoPorDia.isEmpty()) {
 			Collection<Pronostico> pronosticoCollection = meteorologo.obtenerPronosticos(cuantosDias,
 					sistemaSolar.getPlanetaA(), sistemaSolar.getPlanetaB(), sistemaSolar.getPlanetaC());
 			for (Pronostico pronostico : pronosticoCollection) {
