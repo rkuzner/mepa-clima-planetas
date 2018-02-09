@@ -1,10 +1,12 @@
 /**
  * 
  */
-package net.kuzner.app.climaplanetas.domain;
+package net.kuzner.app.climaplanetas;
 
 import java.awt.geom.Point2D;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Representación de un planeta del sistema solar FBV
@@ -12,6 +14,8 @@ import java.util.Objects;
  * @author Raul Kuzner
  */
 public class Planeta {
+
+	private final Logger logger = Logger.getLogger(this.getClass().getName());
 
 	private final String nombre;
 	private final double radioOrbita;
@@ -47,6 +51,9 @@ public class Planeta {
 		}
 		if (this.velocidadAngular == 0) {
 			throw new IllegalArgumentException("la velocidad angular no puede ser cero");
+		}
+		if (this.logger.isLoggable(Level.INFO)) {
+			this.logger.info(String.format("Planeta %s inicializado", this.nombre));
 		}
 	}
 

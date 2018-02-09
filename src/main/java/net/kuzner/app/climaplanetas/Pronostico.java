@@ -1,6 +1,11 @@
-package net.kuzner.app.climaplanetas.domain;
+package net.kuzner.app.climaplanetas;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Logger;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Representación de un pronóstico del clima para el sistema solar FBV
@@ -9,8 +14,20 @@ import java.util.Objects;
  */
 public class Pronostico {
 
+	@JsonIgnore
+	private final Logger logger = Logger.getLogger(this.getClass().getName());
+
 	private final int dia;
+
 	private final String clima;
+
+	@JsonIgnore
+	private Map<String, Double> anguloPorPlanetaMap;
+
+	@JsonIgnore
+	private Map<String, Double> distanciaEntrePlanetasMap;
+
+	@JsonIgnore
 	private double precipitacion;
 
 	/**
@@ -32,6 +49,7 @@ public class Pronostico {
 		if (this.clima.isEmpty()) {
 			throw new IllegalArgumentException("el clima debe informarse");
 		}
+		this.logger.fine("Pronóstico inicializado");
 	}
 
 	/**
@@ -50,6 +68,32 @@ public class Pronostico {
 	 */
 	public String getClima() {
 		return this.clima;
+	}
+
+	@JsonIgnore
+	public Map<String, Double> getAnguloPorPlaneta() {
+		return this.anguloPorPlanetaMap;
+	}
+
+	public void setAnguloPorPlaneta(String planeta, double anguloGrados) {
+		if (Objects.isNull(this.anguloPorPlanetaMap)) {
+			this.anguloPorPlanetaMap = new HashMap<String, Double>();
+		}
+		this.anguloPorPlanetaMap.put(planeta, anguloGrados);
+		this.logger.fine("anguloPorPlaneta agregado");
+	}
+
+	@JsonIgnore
+	public Map<String, Double> getDistanciaEntrePlanetas() {
+		return this.distanciaEntrePlanetasMap;
+	}
+
+	public void putDistanciaEntrePlanetas(String planeta, double distancia) {
+		if (Objects.isNull(this.distanciaEntrePlanetasMap)) {
+			this.distanciaEntrePlanetasMap = new HashMap<String, Double>();
+		}
+		this.distanciaEntrePlanetasMap.put(planeta, distancia);
+		this.logger.fine("distanciaEntrePlanetas agregado");
 	}
 
 	/**
